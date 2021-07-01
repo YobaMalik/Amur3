@@ -1,6 +1,7 @@
 package Back.FolderManager;
 
 import Back.OBRE.OBREdocuments;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -10,7 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GetList {
@@ -70,6 +73,48 @@ public class GetList {
 
             }
 
+        }
+    }
+
+    @Deprecated
+    public void getSOMList() throws IOException {
+        Map<String,String> som = new HashMap<>();
+        try(InputStream in = GetList.class.getResourceAsStream("/FolderManager/SOM.xlsx");
+            Workbook wb = new XSSFWorkbook(in)){
+            Sheet sheet = wb.getSheet("Лист1");
+            for(int i = 0; i < sheet.getLastRowNum() + 1; i++){
+                Cell cell = sheet.getRow(i).getCell(0);
+                som.putIfAbsent(cell.toString().toLowerCase(),cell.toString().toLowerCase());
+            }
+
+        }
+        List<String> fileList = new ArrayList<>();
+        this.getFileList("R:\\Проекты\\ЭПБ (разреш. Ростехнадзора)\\9728 Велесстрой Сертификация_Паспортизация АПГЗ\\Паспортизация\\2. Документация\\1. ИД по линиям\\ТестПак\\АЭ+св+исп\\2-40\\22.04.2021",
+                fileList);
+        fileList.forEach(e -> {
+            File file = new File(e);
+            String fileName = file.getName().toLowerCase().replace("-2.2-001.pdf","");
+            if(som.containsKey(fileName)){
+                try {
+                    System.out.println(file.getName());
+                    FileUtils.copyFile(file,new File("C:\\Users\\Dmitrij.Harko\\Desktop\\Св-ва\\"+file.getName()));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Deprecated
+    private void getFileList(String path, List<String> fileList){
+        File[] files = new File(path).listFiles();
+        for(File file: files){
+            if(!file.isDirectory()){
+                fileList.add(file.getPath());
+
+            } else{
+                getFileList(file.getPath(),fileList);
+            }
         }
     }
 }

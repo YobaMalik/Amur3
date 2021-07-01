@@ -12,7 +12,6 @@ public class Part4 implements IPart4 {
     private Calendar date = Calendar.getInstance(TimeZone.getTimeZone("Europe/Moscow"));
     private int dateCoordinate;
 
-
     private void getDWG(Workbook excPasp) {
         dwgList = new ArrayList<>();
         dwgList.add("Чертеж :");

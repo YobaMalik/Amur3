@@ -1,9 +1,11 @@
 import java.io.IOException;
 
-
 public class Main {
     public static void main(String[] args) throws IOException {
-        new TaskList().execute();
+        TaskList task = new TaskList();
+        while (task.value != 123){
+            task.execute();
+        }
     }
 }
 

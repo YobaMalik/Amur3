@@ -1,9 +1,6 @@
 package NDT;
 
-import Back.OBRE.Docx.OBREapplication;
-import Back.OBRE.OBREdocuments;
 import Back.Pasport.TPTC032;
-import FrontOBRE.MainTask;
 import FrontOBRE.MyFrame;
 import NDT.ReportObjects.ReportResponsible;
 import NDT.ReportObjects.Reports;
@@ -12,7 +9,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,12 +62,11 @@ public class ReportList implements TPTC032 {
                 File.separator+"Yo.xlsx"))){
             Sheet sheet = wb.createSheet("Yoba");
             AtomicInteger rowCount = new AtomicInteger();
-            reportsList.entrySet().forEach(entry -> {
-                Reports reports = entry.getValue();
+            reportsList.forEach((key, reports) -> {
                 Row row = sheet.createRow(rowCount.get());
                 int delta = 9;
                 row.createCell(0).setCellValue(reports.getReportID());
-                for(int i = 0; i<reports.getAllReports().size(); i++){
+                for (int i = 0; i < reports.getAllReports().size() + 1; i++) {
                     ReportResponsible e = reports.getAllReports().get(i);
                     row.createCell(i * delta + 1).setCellValue(e.getNtdType());
                     row.createCell(i * delta + 2).setCellValue(e.getTestedBy());

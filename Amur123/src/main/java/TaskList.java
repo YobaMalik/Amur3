@@ -1,28 +1,27 @@
-import Back.CertificateTask;
 import Back.FolderManager.DoubleCommander;
 import Back.FolderManager.PDFMerge.MergeFiles;
 import FrontOBRE.MainTask;
 import FrontOBRE.MyFrame;
 import NDT.NDTSpecWelders.WeldersNKSpec;
-import NDT.ReportList;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskList {
+    public int value;
     public void execute() throws IOException {
         System.out.println("1 - сделать рэ/об");
         System.out.println("2 - собрать данные по удостоверениям сварщиков");
         System.out.println("3 - список файлов из папки и подпапок на рабочий стол в Result.txt");
         System.out.println("4 - Замена Газпром переработка на Велесстрой");
-   //     System.out.println("3 - сортировка сертификатов 1-50");
-   //     System.out.println("4 - анализ актов НК");
+        System.out.println("5 - что-то непонятное");
         Scanner scanner = new Scanner(System.in);
-        int incValue =0;
+
+        int incValue = 0;
 
         if(scanner.hasNext()){
             incValue = scanner.nextInt();
+            value = incValue;
         }
         MyFrame frame = new MyFrame();
         switch (incValue){

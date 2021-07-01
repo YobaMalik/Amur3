@@ -278,7 +278,7 @@ public class OBREapplication implements GetTableNumber, ConvertString {
                     addNewRPr().addNewHighlight().setVal(STHighlightColor.YELLOW);
             CTText text = run.addNewT();
             if(i!=val.length-1){
-                text.setStringValue((val[i]+delimeter).replace(":,",":"));
+                text.setStringValue((val[i]+delimeter).replace(":,",""));
             } else{
                 text.setStringValue(val[i]);
             }
